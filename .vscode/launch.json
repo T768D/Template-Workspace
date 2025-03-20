@@ -1,0 +1,27 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Current file",
+			"program": "${file}",
+			"request": "launch",
+			"type": "bun",
+			"cwd": "${workspaceFolder}/${relativeFileDirname}"
+		},
+		{
+			"name": "Launch Program",
+			"program": "${workspaceFolder}/src/main.mts",
+			"request": "launch",
+			"type": "bun",
+			"cwd": "${workspaceFolder}/src",
+			"preLaunchTask": "precommit"
+		},
+		{
+			"name": "Run Tests",
+			"program": "${workspaceFolder}/tests/main.test.mts",
+			"request": "launch",
+			"type": "bun",
+			"cwd": "${workspaceFolder}/src"
+		}
+	]
+}

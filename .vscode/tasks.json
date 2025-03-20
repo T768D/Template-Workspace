@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "precommit",
+			"type": "shell",
+			"command": "../buildTools/precommit.bat",
+			"options": {
+				"cwd": "${workspaceFolder}/src"
+			}
+		}
+	]
+}

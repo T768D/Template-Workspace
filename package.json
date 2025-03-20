@@ -1,0 +1,16 @@
+{
+	"name": "template",
+	"version": "1.0",
+	"author": "T768D",
+	"main": "./src/main.mts",
+	"devDependencies": {
+		"@types/bun": "latest",
+		"eslint": "^9.22.0",
+		"typescript-eslint": "^8.27.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"description": "",
+	"private": true
+}
