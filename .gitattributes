@@ -1,0 +1,2 @@
+*.mts linguist-language=Typescript
+*.mjs linguist-language=Javascript
