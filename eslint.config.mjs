@@ -1,7 +1,6 @@
-
 import globals from "globals";
 import eslint from "@eslint/js";
-import tseslint from 'typescript-eslint';
+import tseslint from "typescript-eslint";
 
 export default tseslint.config(
 	eslint.configs.recommended,
@@ -9,7 +8,7 @@ export default tseslint.config(
 	...tseslint.configs.strictTypeChecked,
 
 	{
-		ignores: [".prettierrc.mts", "eslint.config.mjs", "dist/*"],
+		ignores: ["eslint.config.mjs", "dist/*"]
 	},
 
 	{
@@ -50,7 +49,7 @@ export default tseslint.config(
 		rules: {
 			"no-self-compare": "warn",
 			"no-template-curly-in-string": "error",
-			"no-unmodified-loop-condition": 'warn',
+			"no-unmodified-loop-condition": "warn",
 			"no-unreachable-loop": "error",
 			"no-duplicate-imports": "warn",
 			"semi": "error",
@@ -59,9 +58,9 @@ export default tseslint.config(
 			"camelcase": "error",
 			"dot-notation": "error",
 			"id-length": ["warn", { min: 0, max: 25 }],
-			"max-depth": ["warn", { "max": 5 }],
-			"max-nested-callbacks": ["warn", { "max": 4 }],
-			"max-params": ["warn", { "max": 5 }],
+			"max-depth": ["warn", { max: 5 }],
+			"max-nested-callbacks": ["warn", { max: 4 }],
+			"max-params": ["warn", { max: 5 }],
 			"no-alert": "error",
 			"no-array-constructor": "error",
 			"no-caller": "error",
