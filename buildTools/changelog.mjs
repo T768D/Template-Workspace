@@ -22,10 +22,8 @@ import packagejson from "../package.json" assert { type: "json" };
 const currentLogFileName = "../currentChangelog.txt";
 const changeLogFileName = "../changelog.md";
 
-if (!existsSync(currentLogFileName)) {
+if (!existsSync(currentLogFileName))
 	throw new Error(`${currentLogFileName} doesn't exist}`);
-}
-
 
 const currentLog = readFileSync(currentLogFileName, "utf-8").split("\n");
 const unusedTypes = new Set(["bugfixes", "smallchanges", "mediumlargechanges", "version"]);
@@ -75,7 +73,9 @@ for (const line of currentLog) {
 		if (pointFormatted[1] !== " ") pointFormatted.splice(1, 0, " ");
 		if (!pointFormatted[2]) continue;
 		pointFormatted[2] = pointFormatted[2].toUpperCase();
-	} else {
+	}
+
+	else {
 		throw new Error(`Bullet points not formatted correctly! Format is 1 character prefix followed by one space. At line ${line}`);
 	}
 
@@ -83,9 +83,8 @@ for (const line of currentLog) {
 }
 
 
-if (!version) {
+if (!version)
 	throw new Error("Version was not found!");
-}
 
 
 // this updates package.json to the correct version
@@ -96,42 +95,44 @@ writeFileSync("../package.json", JSON.stringify(packagejson, null, 4), "utf-8");
 const date = new Date();
 let formattedChangelog = `\n\n## Version ${version} (${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()})\n`;
 
-if (!existsSync(changeLogFileName)) {
+if (!existsSync(changeLogFileName))
 	writeFileSync(changeLogFileName, `# Changelog\n`, "utf-8");
-}
 
-if (validTypes.bugfixes.length !== 0) {
+
+if (validTypes.bugfixes.length !== 0)
 	formattedChangelog += `
 **Bug Fixes:**
 ${validTypes.bugfixes.join("\n")}
 `;
-}
 
-if (validTypes.smallchanges.length !== 0) {
+
+if (validTypes.smallchanges.length !== 0)
 	formattedChangelog += `
 **Small Changes:**
 ${validTypes.smallchanges.join("\n")}
 `;
-}
 
-if (validTypes.mediumlargechanges.length !== 0) {
+
+if (validTypes.mediumlargechanges.length !== 0)
 	formattedChangelog += `
 **Medium/Large Changes:**
 ${validTypes.mediumlargechanges.join("\n")}
 `;
-}
+
 
 
 const entireChangeLog = readFileSync(changeLogFileName, "utf-8").split("\n");
 
 let found = false;
 for (let x = 0; x < entireChangeLog.length; x++) {
-	if (entireChangeLog[x].trim() === "<!--auto insert here-->") {
-		entireChangeLog.splice(x + 1, 0, formattedChangelog);
-		writeFileSync(changeLogFileName, entireChangeLog.join("\n"), "utf-8");
-		found = true;
-		break;
-	}
+	if (entireChangeLog[x].trim() !== "<!--auto insert here-->")
+		continue;
+
+	entireChangeLog.splice(x + 1, 0, formattedChangelog);
+	writeFileSync(changeLogFileName, entireChangeLog.join("\n"), "utf-8");
+	found = true;
+	break;
+
 }
 
 if (!found)
