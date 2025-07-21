@@ -46,6 +46,7 @@ export default tseslint.config(
 
 	{
 		//off, warn, error
+		// default rules
 		rules: {
 			"no-self-compare": "warn",
 			"no-template-curly-in-string": "error",
@@ -65,6 +66,7 @@ export default tseslint.config(
 			"no-array-constructor": "error",
 			"no-caller": "error",
 			"no-eval": "error",
+			"no-empty": "off",
 			"no-extra-label": "warn",
 			"no-implied-eval": "error",
 			"no-invalid-this": "error",
@@ -85,7 +87,7 @@ export default tseslint.config(
 			"no-useless-return": "error",
 			"no-useless-rename": "error",
 			"no-var": "error",
-			"operator-assignment": "error",
+			"operator-assignment": "error"
 		}
 	}
 );
