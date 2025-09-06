@@ -2,11 +2,11 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "NodeNext",
-		"rootDir": "./src/",
+		"rootDir": "./src",
+		"outDir": "./dist",
 		"moduleResolution": "nodenext",
 		"resolveJsonModule": true,
-		"declaration": true,
-		"outDir": "./dist/",
+		"declaration": false,
 		"removeComments": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -28,8 +28,9 @@
 		"noPropertyAccessFromIndexSignature": false,
 		"allowUnusedLabels": false,
 		"allowUnreachableCode": false,
+		"allowJs": false,
 		"skipLibCheck": true,
-		"allowJs": false
+		"noUncheckedIndexedAccess": true
 	},
 	"include": [
 		"src/*",
