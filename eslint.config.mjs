@@ -1,52 +1,47 @@
 import globals from "globals";
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
 	eslint.configs.recommended,
-	...tseslint.configs.recommendedTypeChecked,
-	...tseslint.configs.strictTypeChecked,
+	tseslint.configs.recommendedTypeChecked,
+	tseslint.configs.strictTypeChecked,
 
 	{
-		ignores: ["eslint.config.mjs", "dist/*"]
-	},
-
-	{
-		files: ["**/*.mjs", "**/*.mts"],
-		languageOptions: {
-			ecmaVersion: "latest",
-			sourceType: "module",
-			globals: {
-				...globals.node
-			}
-		}
+		ignores: ["dist/*"]
 	},
 
 	{
 		files: ["**/*.mts"],
 		languageOptions: {
 			parserOptions: {
-				project: "./tsconfig.json",
 				projectService: true,
 				tsconfigRootDir: import.meta.dirname,
 				ecmaVersion: "latest",
-				sourceType: "module"
+				sourceType: "module",
+				globals: {
+					...globals.node
+				}
 			}
 		},
 
 		rules: {
 			//ts rules here
+			"@typescript-eslint/no-non-null-assertion": "off",
 			"@typescript-eslint/adjacent-overload-signatures": "warn",
 			"@typescript-eslint/no-misused-promises": "off",
 			"@typescript-eslint/restrict-template-expressions": "off",
 			"@typescript-eslint/no-invalid-void-type": "off",
-			"@typescript-eslint/no-dynamic-delete": "off"
+			"@typescript-eslint/no-dynamic-delete": "off",
+			"@typescript-eslint/ban-ts-comment": "off",
+			"@typescript-eslint/no-confusing-void-expression": "off",
+			"@typescript-eslint/unbound-method": "off",
+			"@typescript-eslint/no-unnecessary-type-parameters": "off"
 		}
 	},
 
 	{
-		//off, warn, error
-		// default rules
 		rules: {
 			"no-self-compare": "warn",
 			"no-template-curly-in-string": "error",
@@ -58,15 +53,14 @@ export default tseslint.config(
 			"no-useless-assignment": "error",
 			"camelcase": "error",
 			"dot-notation": "error",
-			"id-length": ["warn", { min: 0, max: 25 }],
+			"id-length": ["warn", { min: 0, max: 30 }],
 			"max-depth": ["warn", { max: 5 }],
 			"max-nested-callbacks": ["warn", { max: 4 }],
 			"max-params": ["warn", { max: 5 }],
-			"no-alert": "error",
+			"no-alert": "off",
 			"no-array-constructor": "error",
 			"no-caller": "error",
 			"no-eval": "error",
-			"no-empty": "off",
 			"no-extra-label": "warn",
 			"no-implied-eval": "error",
 			"no-invalid-this": "error",
@@ -87,7 +81,8 @@ export default tseslint.config(
 			"no-useless-return": "error",
 			"no-useless-rename": "error",
 			"no-var": "error",
-			"operator-assignment": "error"
+			"operator-assignment": "error",
+			"no-debugger": "off"
 		}
 	}
 );
