@@ -4,11 +4,11 @@
 	"author": "T768D",
 	"main": "./src/main.mts",
 	"devDependencies": {
-		"@eslint/js": "^9.31.0",
+		"@eslint/js": "^9.39.1",
 		"@types/bun": "latest",
-		"eslint": "^9.31.0",
-		"globals": "^16.3.0",
-		"typescript-eslint": "^8.37.0"
+		"eslint": "^9.39.1",
+		"globals": "^16.5.0",
+		"typescript-eslint": "^8.48.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.8.2"
