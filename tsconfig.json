@@ -2,8 +2,8 @@
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "NodeNext",
-		"rootDir": "./src",
-		"outDir": "./dist",
+		"noEmit": true,
+		"rootDir": "./",
 		"moduleResolution": "nodenext",
 		"resolveJsonModule": true,
 		"declaration": false,
@@ -19,6 +19,7 @@
 		"strictBuiltinIteratorReturn": true,
 		"noImplicitThis": true,
 		"alwaysStrict": true,
+		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"exactOptionalPropertyTypes": false,
@@ -30,18 +31,16 @@
 		"allowUnreachableCode": false,
 		"allowJs": false,
 		"skipLibCheck": true,
-		"noUncheckedIndexedAccess": true
+		"noUncheckedIndexedAccess": true,
 	},
 	"include": [
-		"src/*",
+		"./src/",
+		"./buildTools/",
+		"./tests/"
 	],
 	"exclude": [
-		"dist/*",
-		"node_modules/*",
-		".vscode/*",
-		"buildTools/*",
-		"tests/*",
-		"deploy/*",
-		".vscode/*"
+		"./dist/",
+		"./.vscode/",
+		"./node_modules/"
 	]
 }
