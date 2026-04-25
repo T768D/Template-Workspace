@@ -17,7 +17,8 @@
 */
 
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import packagejson from "../package.json" assert { type: "json" };
+import packagejson from "../package.json" with { type: "json" };
+
 
 const currentLogFileName = "../currentChangelog.txt";
 const changeLogFileName = "../changelog.md";
@@ -28,11 +29,15 @@ if (!existsSync(currentLogFileName))
 const currentLog = readFileSync(currentLogFileName, "utf-8").split("\n");
 const unusedTypes = new Set(["bugfixes", "smallchanges", "mediumlargechanges", "version"]);
 
-/** This is a array because I dont have to delete anything so its faster */
-const validTypes = {
-	"bugfixes": [],
-	"smallchanges": [],
-	"mediumlargechanges": []
+
+const validTypes: {
+	bugFixes: string[];
+	smallChanges: string[];
+	mediumLargeChanges: string[];
+} = {
+	"bugFixes": [],
+	"smallChanges": [],
+	"mediumLargeChanges": []
 };
 
 let currentType = "";
@@ -48,7 +53,7 @@ for (const line of currentLog) {
 			throw new Error("Type version is duplicated!");
 
 		// matches the decimals, then removes the trailing decimals
-		version = typeFormatted.replace(/\.+$/, "").match(/\d+(\.\d+)*.*/)[0];
+		version = typeFormatted.replace(/\.+$/, "").match(/\d+(\.\d+)*.*/)![0];
 		continue;
 	}
 
@@ -62,12 +67,12 @@ for (const line of currentLog) {
 	else if (typeFormatted in validTypes)
 		throw new Error(`Type ${typeFormatted} is duplicated at line ${line}`);
 
-	else if (!currentType)
+	else if (!currentType || !(currentType in validTypes))
 		throw new Error(`Either type is invalid or missing! Type: ${typeFormatted} at line ${line}`);
 
 
 	/** Bullet point formatted */
-	let pointFormatted = line.trim().split("");
+	const pointFormatted = line.trim().split("");
 
 	if (pointFormatted[0] === "-") {
 		if (pointFormatted[1] !== " ") pointFormatted.splice(1, 0, " ");
@@ -79,7 +84,7 @@ for (const line of currentLog) {
 		throw new Error(`Bullet points not formatted correctly! Format is 1 character prefix followed by one space. At line ${line}`);
 	}
 
-	validTypes[currentType].push(pointFormatted.join(""));
+	validTypes[currentType as keyof typeof validTypes].push(pointFormatted.join(""));
 }
 
 
@@ -99,24 +104,24 @@ if (!existsSync(changeLogFileName))
 	writeFileSync(changeLogFileName, `# Changelog\n`, "utf-8");
 
 
-if (validTypes.bugfixes.length !== 0)
+if (validTypes.bugFixes.length !== 0)
 	formattedChangelog += `
 **Bug Fixes:**
-${validTypes.bugfixes.join("\n")}
+${validTypes.bugFixes.join("\n")}
 `;
 
 
-if (validTypes.smallchanges.length !== 0)
+if (validTypes.smallChanges.length !== 0)
 	formattedChangelog += `
 **Small Changes:**
-${validTypes.smallchanges.join("\n")}
+${validTypes.smallChanges.join("\n")}
 `;
 
 
-if (validTypes.mediumlargechanges.length !== 0)
+if (validTypes.mediumLargeChanges.length !== 0)
 	formattedChangelog += `
 **Medium/Large Changes:**
-${validTypes.mediumlargechanges.join("\n")}
+${validTypes.mediumLargeChanges.join("\n")}
 `;
 
 
@@ -125,7 +130,7 @@ const entireChangeLog = readFileSync(changeLogFileName, "utf-8").split("\n");
 
 let found = false;
 for (let x = 0; x < entireChangeLog.length; x++) {
-	if (entireChangeLog[x].trim() !== "<!--auto insert here-->")
+	if (entireChangeLog[x]!.trim() !== "<!--auto insert here-->")
 		continue;
 
 	entireChangeLog.splice(x + 1, 0, formattedChangelog);
